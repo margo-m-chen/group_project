@@ -12,12 +12,8 @@
 
         }
 
-        h2 {
-            color: #b23030;
-        }
-
-        p {
-            font-family: Arial, Helvetica, sans-serif;
+        h1 {
+            color: #2c3e50;
         }
 
         /* Image Slider Styles */
@@ -27,7 +23,7 @@
             margin: 20px auto;
             overflow: hidden;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
 
         .slider {
@@ -46,12 +42,11 @@
             object-fit: cover;
         }
 
-        .prev,
-        .next {
+        .prev, .next {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0,0,0,0.5);
             color: white;
             border: none;
             padding: 16px;
@@ -66,9 +61,8 @@
             border-radius: 3px 0 0 3px;
         }
 
-        .prev:hover,
-        .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
         }
 
         .dots-container {
@@ -87,8 +81,7 @@
             transition: background-color 0.3s ease;
         }
 
-        .dot:hover,
-        .dot.active {
+        .dot:hover, .dot.active {
             background-color: #717171;
         }
     </style>
@@ -104,24 +97,26 @@
                 <img src="photo.jpg" alt="Slide 1">
             </div>
             <div class="slide">
-                <img src="1.jpeg" alt="Slide 2">
+                <img src="https://via.placeholder.com/600x400/FF6B6B/FFFFFF?text=Slide+2" alt="Slide 2">
             </div>
             <div class="slide">
-                <img src="images.jpeg" alt="Slide 3">
+                <img src="https://via.placeholder.com/600x400/4ECDC4/FFFFFF?text=Slide+3" alt="Slide 3">
             </div>
-
+            <div class="slide">
+                <img src="https://via.placeholder.com/600x400/45B7D1/FFFFFF?text=Slide+4" alt="Slide 4">
+            </div>
         </div>
-
+        
         <!-- Navigation arrows -->
         <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
         <button class="next" onclick="changeSlide(1)">&#10095;</button>
-
+        
         <!-- Dots indicator -->
         <div class="dots-container">
             <span class="dot active" onclick="currentSlide(1)"></span>
             <span class="dot" onclick="currentSlide(2)"></span>
             <span class="dot" onclick="currentSlide(3)"></span>
-
+            <span class="dot" onclick="currentSlide(4)"></span>
         </div>
     </div>
 
@@ -162,17 +157,12 @@
     </p>
 
 
-
     <h2>Work Experience</h2>
     <p>
         I have worked in various roles, including software development and project management. My experience has taught
         me the importance of teamwork, adaptability, and continuous learning.
         I thrive in dynamic environments where I can contribute to innovative projects and help teams succeed.
     </p>
-
-
-
-
 
 
     <h2>Projects</h2>
@@ -186,105 +176,6 @@
         Feel free to connect with me via <a href="mailto:margo.m.chen@hsbc.com.cn">email</a> or check out my work on <a
             href="https://github.com/margo-m-chen" target="_blank">GitHub</a>.
     </p>
-
-    <script>
-        let currentSlideIndex = 0;
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
-        const totalSlides = slides.length;
-
-        // Function to show a specific slide
-        function showSlide(n) {
-            // Wrap around if index is out of bounds
-            if (n >= totalSlides) {
-                currentSlideIndex = 0;
-            } else if (n < 0) {
-                currentSlideIndex = totalSlides - 1;
-            } else {
-                currentSlideIndex = n;
-            }
-
-            // Move the slider
-            const slider = document.getElementById('slider');
-            slider.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
-
-            // Update dots
-            updateDots();
-        }
-
-        // Function to change slide (for arrow navigation)
-        function changeSlide(direction) {
-            showSlide(currentSlideIndex + direction);
-        }
-
-        // Function to go to a specific slide (for dot navigation)
-        function currentSlide(n) {
-            showSlide(n - 1); // Convert to 0-based index
-        }
-
-        // Function to update dot indicators
-        function updateDots() {
-            dots.forEach((dot, index) => {
-                if (index === currentSlideIndex) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-        }
-
-        // Auto-slide functionality (optional)
-        function autoSlide() {
-            changeSlide(1);
-        }
-
-        // Start auto-slide (uncomment to enable)
-        // setInterval(autoSlide, 5000); // Change slide every 5 seconds
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'ArrowLeft') {
-                changeSlide(-1);
-            } else if (e.key === 'ArrowRight') {
-                changeSlide(1);
-            }
-        });
-
-        // Touch/swipe support for mobile
-        let startX = 0;
-        let endX = 0;
-
-        const sliderContainer = document.querySelector('.slider-container');
-
-        sliderContainer.addEventListener('touchstart', function (e) {
-            startX = e.touches[0].clientX;
-        });
-
-        sliderContainer.addEventListener('touchend', function (e) {
-            endX = e.changedTouches[0].clientX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
-            const threshold = 50; // Minimum distance for swipe
-            const diff = startX - endX;
-
-            if (Math.abs(diff) > threshold) {
-                if (diff > 0) {
-                    // Swipe left - next slide
-                    changeSlide(1);
-                } else {
-                    // Swipe right - previous slide
-                    changeSlide(-1);
-                }
-            }
-        }
-
-        // Initialize the slider
-        document.addEventListener('DOMContentLoaded', function () {
-            showSlide(0); // Show first slide
-        });
-    </script>
 </body>
 
 </html>
